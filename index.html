@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>total</title>
     <style>
-        .js-col {
+        .col {
             padding: 5px;
             background: #e3e3e3;
             width: 300px;
@@ -22,48 +22,58 @@
     </style>
 </head>
 <body>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col js-col-total">total</div>
+    <div data-col="1" class="col">ABC</div>
+    <div data-col="1" class="col">10</div>
+    <div data-col="1" class="col">10</div>
+    <div data-col="1" class="col">10</div>
+    <div data-col="1" class="col js-col-total">total</div>
 
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col  js-col-total">total</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col js-col-total">total</div>
 
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col">10</div>
-    <div data-col="1" class="js-col js-col-total">total</div>
+    <div data-col="1" class="col">10</div>
+    <div data-col="1" class="col">1,000,000</div>
+    <div data-col="1" class="col">ABC</div>
+    <div data-col="1" class="col">(200)</div>
+    <div data-col="1" class="col">10</div>
+    <div data-col="1" class="col">10</div>
+    <div data-col="1" class="col js-col-total">total</div>
 
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col">10</div>
-    <div data-col="2" class="js-col js-col-total">total</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col">10</div>
+    <div data-col="2" class="col js-col-total">total</div>
 <script>
 function columnTotal(colIndex) {
     const cols = document.querySelectorAll(`[data-col="${colIndex}"]`);
     let total = 0;
     cols.forEach(col => {
-        if ( col.classList.contains('js-col-total') ) {
-            col.innerText = total;
-            total = 0;
+        if ( !col.classList.contains('js-col-total') ) {
+            total += parseFloat(getNumber(col.innerText));
         } else {
-            total += parseFloat(col.innerText);
+            col.innerText = formatNumber(total);
+            total = 0;
         }
     });
 }
 
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function getNumber(num) {
+    let formated = num.replace(/[^0-9.]/g, '');
+    (formated == '') ? formated = 0 : formated;
+
+    return formated;
+}
+
 columnTotal(1);
 columnTotal(2);
-
 </script>
 </body>
 </html>
