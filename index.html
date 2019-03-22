@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>total</title>
+    <style>
+        .js-col {
+            padding: 5px;
+            background: #e3e3e3;
+            width: 300px;
+        }
+
+        [data-col="2"] {
+            background: #bada55;
+        }
+
+        .js-col-total {
+            margin-bottom: 20px;
+            background: #fff;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col js-col-total">total</div>
+
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col  js-col-total">total</div>
+
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col">10</div>
+    <div data-col="1" class="js-col js-col-total">total</div>
+
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col">10</div>
+    <div data-col="2" class="js-col js-col-total">total</div>
+<script>
+function columnTotal(colIndex) {
+    const cols = document.querySelectorAll(`[data-col="${colIndex}"]`);
+    let total = 0;
+    cols.forEach(col => {
+        if ( col.classList.contains('js-col-total') ) {
+            col.innerText = total;
+            total = 0;
+        } else {
+            total += parseFloat(col.innerText);
+        }
+    });
+}
+
+columnTotal(1);
+columnTotal(2);
+
+</script>
+</body>
+</html>
