@@ -51,11 +51,14 @@
 function columnTotal(colIndex) {
     const cols = document.querySelectorAll(`[data-col="${colIndex}"]`);
     let total = 0;
+    let operation = 1;
     cols.forEach(col => {
         if ( !col.classList.contains('js-col-total') ) {
-            total += parseFloat(getNumber(col.innerText));
+            // Checking if the number is wrapped within paranthasses - use it as substractor in that case
+            if ( col.innerText.includes('(') ) operation = -1;
+            total += parseFloat(getNumber(col.innerText)) * operation;
         } else {
-            col.innerText = formatNumber(total);
+            col.querySelector('.js-report-target').innerText = formatNumber(total);
             total = 0;
         }
     });
